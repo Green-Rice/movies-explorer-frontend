@@ -1,0 +1,26 @@
+.navTab {
+  background-color: #F5F5F5;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  min-height: 66px;
+}
+
+.navTab__item {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration-line: underline;
+}
+
+@media screen and (max-width: 500px) {
+  .navTab {
+    gap: 24px;
+  }
+
+  .navTab__item {
+    font-size: 11px;
+    border-radius: 6px;
+  }
+}
