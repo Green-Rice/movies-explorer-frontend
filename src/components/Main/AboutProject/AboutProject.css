@@ -1,5 +1,5 @@
 .aboutProject {
-  background-color: #FAFAFA;;
+  background-color: var(--white-bg);
   padding: 110px 70px;
 }
 
@@ -65,7 +65,7 @@
 
 .aboutProject__scale-subtitle {
   margin-top: 14px;
-  color: #A0A0A0;
+  color: var(--gray-text);
 }
 
 .aboutProject__frontend {

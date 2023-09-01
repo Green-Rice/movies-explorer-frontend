@@ -1,6 +1,6 @@
 .aboutMe {
   padding: 110px 70px 0;
-  background: #FAFAFA;
+  background: var(--white-bg)
 }
 
 .aboutMe__title {
