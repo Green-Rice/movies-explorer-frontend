@@ -1,5 +1,5 @@
 import "./Header.css";
-import {Link, NavLink, Outlet} from "react-router-dom";
+import {Link, NavLink, Outlet, useLocation} from "react-router-dom";
 import logo from "../../images/logo.png";
 import profile from "../../images/profile.png";
 import burgerBtn from "../../images/burger-menu-btn.svg";
@@ -8,6 +8,8 @@ import { useState } from 'react';
 
 const Header = ({loggedIn}) => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isMainPage = pathname === '/'
 
   const toggleBtnMenu = () => {
     setIsBurgerOpen(state => !state)
@@ -16,7 +18,7 @@ const Header = ({loggedIn}) => {
   if (loggedIn) {
     return (
       <>
-        <header className="header">
+        <header className={`header ${isMainPage && 'header__main'}`}>
           <Link to="/" className="link header__link_type_logo>">
             <img src={logo} className="header__logo" alt='Логотип' />
           </Link>

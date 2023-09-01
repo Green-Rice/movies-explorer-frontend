@@ -1,0 +1,129 @@
+.searchForm {
+  padding: 70px 0;
+  margin: 0 70px;
+  border-bottom: 1px solid var(--gray-color);
+}
+
+.searchForm__container {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 9px;
+  height: 72px;
+  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+}
+
+.searchForm__form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+}
+
+.searchForm__set {
+  width: 100%;
+  border: none;
+  padding: 19px;
+  display: flex;
+  align-items: center;
+}
+
+.searchForm__label {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.searchForm__input {
+  width: 100%;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+}
+
+.searchForm__input:focus {
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.searchForm__input::placeholder {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--gray-text);
+}
+
+.searchForm__flex {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button_type_search {
+  margin-right: 19px;
+}
+
+.searchForm__line {
+  border-right: 1px solid var(--gray-color);
+  height: 40px;
+}
+
+@media screen and (max-width: 800px) {
+  .searchForm {
+    padding: 80px 0 110px;
+    margin: 0 30px;
+  }
+
+  .searchForm::after {
+    left: 30px;
+    width: calc(100% - 60px);
+  }
+
+  .button_type_search {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .searchForm {
+    padding: 80px 0 45px;
+    margin: 0 10px;
+  }
+
+  .searchForm__container {
+    flex-direction: column;
+    box-shadow: none;
+    gap: 55px;
+    padding-bottom: 60px;
+  }
+
+  .searchForm::after {
+    left: 10px;
+    width: calc(100% - 20px);
+  }
+
+  .searchForm__form {
+    border-radius: 9px;
+    box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+  }
+
+  .searchForm__img {
+    display: none;
+    padding: 0;
+  }
+
+  .searchForm__input {
+    margin-left: 0;
+  }
+
+  .searchForm__input::placeholder {
+    font-size: 14px;
+  }
+
+  .button_type_search {
+    margin-right: 19px;
+  }
+
+  .searchForm__line {
+    border-right: none;
+  }
+}
