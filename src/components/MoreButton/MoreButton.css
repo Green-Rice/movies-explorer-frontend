@@ -1,0 +1,21 @@
+.moreButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moreButton__btn {
+  background: #F4F4F4;
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  margin-top: 80px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 500px) {
+  .moreButton__btn {
+    width: 240px;
+  }
+}

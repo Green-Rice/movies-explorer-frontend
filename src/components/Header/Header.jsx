@@ -68,7 +68,11 @@ const Header = ({loggedIn}) => {
                   Сохранённые фильмы
                 </NavLink>
               </div>
-              <NavLink to="/profile" className="link burger__link burger__link_type_profile">
+              <NavLink
+                to="/profile"
+                onClick={toggleBtnMenu}
+                className="link burger__link burger__link_type_profile"
+              >
                 <img src={profile} alt='Кнопка аккаунта'/>
               </NavLink>
             </div>

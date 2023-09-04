@@ -11,7 +11,14 @@ const SearchForm = () => {
           <fieldset className="searchForm__set">
             <label htmlFor="search" className="searchForm__label">
               <img className="searchForm__img" src={search} alt="Кнопка поиска" />
-              <input type="text" className="searchForm__input" placeholder="Фильм" id="search" required />
+              <input
+                type="text"
+                className="searchForm__input"
+                placeholder="Фильм"
+                id="search"
+                autoComplete="off"
+                required
+              />
             </label>
           </fieldset>
           <button className="button button_type_search">

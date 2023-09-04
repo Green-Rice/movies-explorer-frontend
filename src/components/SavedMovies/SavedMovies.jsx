@@ -1,16 +1,14 @@
 import Footer from "../Footer/Footer";
-import MoreButton from '../MoreButton/MoreButton';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-const Movies = () => {
+const SavedMovies = () => {
   return(
     <>
       <main>
         <section>
           <SearchForm />
           <MoviesCardList />
-          <MoreButton />
         </section>
       </main>
       <Footer />
@@ -18,4 +16,4 @@ const Movies = () => {
   )
 };
 
-export default Movies;
+export default SavedMovies;

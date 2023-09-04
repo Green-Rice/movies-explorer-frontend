@@ -21,8 +21,8 @@ const MoviesCardList = () => {
         <li><MoviesCard /></li>
         <li><MoviesCard /></li>
       </ul>
-      {isMoviesPage && <button type="button" className="button movieCardList__btn">Ещё</button>}
-      <Preloader />
+      {/* {isMoviesPage && <button type="button" className="button movieCardList__btn">Ещё</button>} */}
+      {/* <Preloader /> */}
     </section>
   )
 };
