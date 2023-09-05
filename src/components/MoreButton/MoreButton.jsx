@@ -6,12 +6,12 @@ const MoreButton = () => {
   const [isLoader, setIsLoader] = useState(false);
 
   return(
-    <div className="moreButton">
+    <section className="moreButton">
       {isLoader
         ? <Preloader />
         : <button type="button" className="button moreButton__btn">Ещё</button>
       }
-    </div>
+    </section>
   )
 };
 
