@@ -19,7 +19,7 @@ const Header = ({loggedIn}) => {
     return (
       <>
         <header className={`header ${isMainPage && 'header__main'}`}>
-          <Link to="/" className="link header__link_type_logo>">
+          <Link to="/" className="link header__link_type_logo">
             <img src={logo} className="header__logo" alt='Логотип' />
           </Link>
           <div className="header__nav header__nav_type_loggedIn">

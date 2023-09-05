@@ -9,7 +9,9 @@ const Login = () => {
   return(
     <main>
       <section className="login">
-        <img className="login__logo" src={logo} alt="Логотип" />
+        <Link to="/" className="link login__logo">
+            <img src={logo} alt='Логотип' />
+        </Link>
         <h2 className="login__title">
           Рады видеть!
         </h2>

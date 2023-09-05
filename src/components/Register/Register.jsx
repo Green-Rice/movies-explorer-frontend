@@ -9,7 +9,9 @@ const Register = () => {
   return(
     <main>
       <section className="register">
-        <img className="register__logo" src={logo} alt="Логотип" />
+        <Link to="/" className="link register__logo">
+            <img src={logo} alt='Логотип' />
+        </Link>
         <h2 className="register__title">
           Добро пожаловать!
         </h2>
