@@ -1,0 +1,55 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+
+:root {
+  --primary-color: #3456F3;
+  --error-color: #EE3465;
+  --gray-color: #E8E8E8;
+  --inactive-color: #F8F8F8;
+  --main-gray-bg: #DDDEE3;
+  --gray-text: #A0A0A0;
+  --white-bg: #FAFAFA;
+}
+
+body {
+  background-color: #fff;
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  color: #000;
+
+  max-width: 1280px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.list {
+  padding: 0;
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.link {
+  color: #000;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.link:hover {
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+.button {
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: #00000000;
+  transition: 0.3s;
+}
+
+.button:hover {
+  opacity: 0.8;
+  transition: 0.3s;
+}

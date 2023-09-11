@@ -1,0 +1,140 @@
+.login {
+  padding: 70px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 396px;
+  margin: 0 auto;
+}
+
+.login__logo {
+  align-self: flex-start;
+}
+
+.login__title {
+  align-self: flex-start;
+  margin: 40px 0 0 0;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.login__form {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.form__set {
+  border: 0;
+  padding: 0;
+  margin: 0px;
+  padding-bottom: 5px;
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form__legend {
+  font-size: 10px;
+  color: var(--gray-text);
+}
+
+.form__input {
+  padding: 0;
+  padding-top: 5px;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--gray-color);
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+
+.form__input:focus-visible {
+  outline: 0;
+}
+
+.form__input:focus {
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.form__input_error {
+  color: var(--error-color);
+}
+
+.form__input_error:focus {
+  border-bottom: 1px solid var(--error-color);
+}
+
+.form__input-error {
+  color: var(--error-color);
+  font-size: 10px;
+  position: absolute;
+  top: 38px;
+  left: 0;
+  opacity: 0;
+}
+
+.form__input-error_active {
+  opacity: 1;
+}
+
+.form__button {
+  margin-top: 200px;
+  width: 100%;
+  padding: 13px 0 15px;
+  background-color: var(--primary-color);
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.form__button_inactive {
+  cursor: auto;
+  background-color: var(--inactive-color);
+  color: #C2C2C2;
+}
+
+.login__question {
+  margin: 20px 0 0 0;
+  font-size: 14px;
+  color: var(--gray-text);
+}
+
+.login__link {
+  margin-left: 4px;
+  color: var(--primary-color);
+}
+
+
+@media screen and (max-width: 500px) {
+  .login {
+    padding: 56px 0 30px;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .login__logo {
+    align-self: center;
+  }
+
+  .login__title {
+    align-self: center;
+    margin-top: 50px;
+  }
+
+  .login__form {
+    margin-top: 80px;
+  }
+
+  .form__button {
+    margin-top: 290px;
+    width: 100%;
+    padding: 15px 0;
+    font-size: 12px;
+  }
+
+  .login__question {
+    margin-top: 14px;
+    font-size: 12px;
+  }
+}
