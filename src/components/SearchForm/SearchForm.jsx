@@ -1,25 +1,64 @@
-import "./SearchForm.css";
-import search from '../../images/search.svg'
-import enter from "../../images/enter.svg";
+import './SearchForm.css';
+import search from '../../images/search.svg';
+import enter from '../../images/enter.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { useState } from 'react';
 
-const SearchForm = () => {
-  return(
+const SearchForm = ({ movieName, onSubmit }) => {
+  const [value, setValue] = useState(movieName);
+  const [isError, setIsError] = useState(false);
+
+  const handleChange = (e) => {
+    if (isError) {
+      setIsError(false);
+    }
+    setValue(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (value === '') {
+      setIsError(true);
+    } else {
+      onSubmit(value);
+    }
+  };
+
+  return (
     <section className="searchForm">
       <div className="searchForm__container">
-        <form className="searchForm__form" name="searchForm">
+        <form
+          className="searchForm__form"
+          name="searchForm"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <fieldset className="searchForm__set">
             <label htmlFor="search" className="searchForm__label">
-              <img className="searchForm__img" src={search} alt="Кнопка поиска" />
+              <img
+                className="searchForm__img"
+                src={search}
+                alt="Кнопка поиска"
+              />
               <input
                 type="text"
                 className="searchForm__input"
                 placeholder="Фильм"
                 id="search"
                 autoComplete="off"
+                value={value}
+                onChange={handleChange}
                 required
               />
             </label>
+            <span
+              className={`searchForm__input-error ${
+                isError && 'searchForm__input-error_active'
+              }`}
+            >
+              Нужно ввести ключевое слово
+            </span>
           </fieldset>
           <button className="button button_type_search">
             <img className="button__img" src={enter} alt="Начать поиск" />
@@ -31,7 +70,7 @@ const SearchForm = () => {
         <FilterCheckbox />
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default SearchForm;

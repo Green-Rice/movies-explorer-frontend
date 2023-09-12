@@ -1,23 +1,23 @@
-import MoviesCard from "../MoviesCard/MoviesCard";
-import "./MoviesCardList.css";
+import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
+import './MoviesCardList.css';
 
-const MoviesCardList = () => {
-  return(
+const MoviesCardList = ({ filteredMovies, isLoader }) => {
+  const moviesList = filteredMovies.map((movie) => (
+    <li key={movie.id}>
+      <MoviesCard movie={movie} />
+    </li>
+  ));
+
+  if (isLoader) {
+    return <Preloader />;
+  }
+
+  return (
     <section className="movieCardList">
-      <ul className="list movieCardList__list">
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-        <li><MoviesCard /></li>
-      </ul>
+      <ul className="list movieCardList__list">{moviesList}</ul>
     </section>
-  )
+  );
 };
 
 export default MoviesCardList;

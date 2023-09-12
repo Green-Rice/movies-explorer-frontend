@@ -27,6 +27,7 @@
   padding: 19px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .searchForm__label {
@@ -51,6 +52,19 @@
   font-size: 18px;
   line-height: 20px;
   color: var(--gray-text);
+}
+
+.searchForm__input-error {
+  color: var(--error-color);
+  font-size: 10px;
+  position: absolute;
+  top: 50px;
+  left: 65px;
+  opacity: 0;
+}
+
+.searchForm__input-error_active {
+  opacity: 1;
 }
 
 .searchForm__flex {
