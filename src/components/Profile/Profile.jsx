@@ -2,7 +2,7 @@ import { useState } from 'react';
 import "./Profile.css";
 import { useNavigate } from 'react-router-dom';
 
-const Profile = () => {
+const Profile = ({onSignOut}) => {
   const [hasError, setHasError] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const navigate = useNavigate();
@@ -15,10 +15,6 @@ const Profile = () => {
 
   const handleSave = () => {
     setIsEdit(false)
-  }
-
-  const onSignOut = () => {
-    navigate('/');
   }
 
   return(

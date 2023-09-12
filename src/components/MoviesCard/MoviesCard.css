@@ -2,6 +2,7 @@
   background: #fff;
   filter: drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.05));
   border-radius: 16px;
+  /* height: 218px; */
 }
 
 .movieCard__flex {

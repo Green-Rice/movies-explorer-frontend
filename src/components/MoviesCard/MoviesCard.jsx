@@ -2,7 +2,6 @@ import './MoviesCard.css';
 import save_btn from '../../images/save-icon.svg';
 import saved_btn from '../../images/saved-icon.svg';
 import delete_movie from '../../images/delete-movie.svg';
-import movie_img from '../../images/film.png';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { getMovieDuration } from '../../utils/helpers/getMovieDuration';

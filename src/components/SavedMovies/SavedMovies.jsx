@@ -2,12 +2,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
 const SavedMovies = () => {
-  return(
+  return (
     <main>
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList movies={[]} />
     </main>
-  )
+  );
 };
 
 export default SavedMovies;

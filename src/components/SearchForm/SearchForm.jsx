@@ -4,8 +4,9 @@ import enter from '../../images/enter.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useState } from 'react';
 
-const SearchForm = ({ movieName, onSubmit }) => {
+const SearchForm = ({ movieName, onSubmit, movieCheckbox }) => {
   const [value, setValue] = useState(movieName);
+  const [checked, setChecked] = useState(movieCheckbox);
   const [isError, setIsError] = useState(false);
 
   const handleChange = (e) => {
@@ -21,8 +22,13 @@ const SearchForm = ({ movieName, onSubmit }) => {
     if (value === '') {
       setIsError(true);
     } else {
-      onSubmit(value);
+      onSubmit(value, checked);
     }
+  };
+
+  const handleChecked = (checkbox) => {
+    setChecked(checkbox);
+    onSubmit(value, checkbox);
   };
 
   return (
@@ -67,7 +73,10 @@ const SearchForm = ({ movieName, onSubmit }) => {
             <div className="searchForm__line" />
           </div>
         </form>
-        <FilterCheckbox />
+        <FilterCheckbox
+          onChecked={handleChecked}
+          movieCheckbox={movieCheckbox}
+        />
       </div>
     </section>
   );
