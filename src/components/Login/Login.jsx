@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './Login.css';
 import logo from '../../images/logo.png';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { EMAIL_PATTERN } from '../../utils/consts';
 import { useEffect } from 'react';
 
-const Login = ({ onSubmit }) => {
+const Login = ({ onSubmit, loggedIn }) => {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
@@ -18,6 +18,10 @@ const Login = ({ onSubmit }) => {
 
     onSubmit(values);
   };
+
+  if (loggedIn) {
+    return <Navigate to={'/'} replace />;
+  }
 
   return (
     <main>

@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { getMovies } from '../../utils/api/moviesApi';
 import { getUser, signIn, signUp } from '../../utils/api/mainApi';
-import { JWT } from '../../utils/localStorage';
+import {
+  JWT,
+  MOVIE_CHECKBOX_KEY,
+  MOVIE_NAME_KEY,
+} from '../../utils/localStorage';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -15,6 +19,8 @@ import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 import { getToken } from '../../utils/helpers/getToken';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import Preloader from '../Preloader/Preloader';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({
@@ -25,11 +31,15 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
+  const [loadingPage, setLoadingPage] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = getToken();
     if (token) {
-      handleGetUser(token)
+      handleGetUser(token);
+    } else {
+      setLoadingPage(false);
     }
   }, []);
 
@@ -41,7 +51,8 @@ const App = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+    setLoadingPage(false);
+  };
 
   const handleGetMovie = async (movieName, checkbox) => {
     let filteredMovies;
@@ -76,6 +87,8 @@ const App = () => {
       const res = await signIn(data);
       localStorage.setItem(JWT, res.token);
       handleGetUser(res.token);
+      setLoggedIn(true);
+      navigate('movies');
     } catch (e) {
       console.log(e);
     }
@@ -83,7 +96,13 @@ const App = () => {
 
   const handleSignOut = () => {
     setLoggedIn(false);
-    localStorage.removeItem(JWT)
+    localStorage.removeItem(JWT);
+    localStorage.removeItem(MOVIE_CHECKBOX_KEY);
+    localStorage.removeItem(MOVIE_NAME_KEY);
+  };
+
+  if (loadingPage) {
+    return <Preloader />;
   }
 
   return (
@@ -95,7 +114,9 @@ const App = () => {
             <Route
               path="movies"
               element={
-                <Movies
+                <PrivateRoute
+                  component={Movies}
+                  loggedIn={loggedIn}
                   onSubmit={handleGetMovie}
                   onGetMovies={handleGetMovie}
                   filteredMovies={filteredMovies}
@@ -105,10 +126,25 @@ const App = () => {
             />
             <Route path="saved-movies" element={<SavedMovies />} />
           </Route>
-          <Route path="profile" element={<Profile onSignOut={handleSignOut}/>} />
+          <Route
+            path="profile"
+            element={
+              <PrivateRoute
+                component={Profile}
+                loggedIn={loggedIn}
+                onSignOut={handleSignOut}
+              />
+            }
+          />
         </Route>
-        <Route path="signup" element={<Register onSubmit={handleSignUp} />} />
-        <Route path="signin" element={<Login onSubmit={handleSignIn} />} />
+        <Route
+          path="signup"
+          element={<Register loggedIn={loggedIn} onSubmit={handleSignUp} />}
+        />
+        <Route
+          path="signin"
+          element={<Login loggedIn={loggedIn} onSubmit={handleSignIn} />}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </CurrentUserContext.Provider>

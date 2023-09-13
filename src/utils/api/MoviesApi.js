@@ -6,7 +6,6 @@ const checkAnswer = (res) => {
   }
 
   return res.json().then((err) => {
-    err.statusCode = res.status;
     return Promise.reject(err);
   });
 };

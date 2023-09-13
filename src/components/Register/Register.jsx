@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.png';
 import { EMAIL_PATTERN } from '../../utils/consts';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-const Register = ({ onSubmit }) => {
+const Register = ({ onSubmit, loggedIn }) => {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
@@ -18,6 +18,10 @@ const Register = ({ onSubmit }) => {
 
     onSubmit(values);
   };
+
+  if (loggedIn) {
+    return <Navigate to={'/'} replace />;
+  }
 
   return (
     <main>

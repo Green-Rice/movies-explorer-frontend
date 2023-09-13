@@ -53,7 +53,7 @@ const SearchForm = ({ movieName, onSubmit, movieCheckbox }) => {
                 placeholder="Фильм"
                 id="search"
                 autoComplete="off"
-                value={value}
+                value={value || ''}
                 onChange={handleChange}
                 required
               />

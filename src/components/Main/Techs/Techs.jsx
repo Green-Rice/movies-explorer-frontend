@@ -31,6 +31,9 @@ const Techs = () => {
             Git
           </li>
           <li className="techs__item">
+            Git
+          </li>
+          <li className="techs__item">
             Express.js
           </li>
           <li className="techs__item">
