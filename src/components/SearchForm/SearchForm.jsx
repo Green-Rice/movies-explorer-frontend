@@ -5,7 +5,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useState } from 'react';
 
 const SearchForm = ({ movieName, onSubmit, movieCheckbox }) => {
-  const [value, setValue] = useState(movieName);
+  const [value, setValue] = useState(movieName || '');
   const [checked, setChecked] = useState(movieCheckbox);
   const [isError, setIsError] = useState(false);
 
@@ -53,7 +53,7 @@ const SearchForm = ({ movieName, onSubmit, movieCheckbox }) => {
                 placeholder="Фильм"
                 id="search"
                 autoComplete="off"
-                value={value || ''}
+                value={value}
                 onChange={handleChange}
                 required
               />

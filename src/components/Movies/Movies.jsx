@@ -21,12 +21,6 @@ const Movies = ({ onSubmit, filteredMovies, isLoader, onGetMovies }) => {
   useEffect(() => {
     window.addEventListener('resize', handleChangeWidthScreen);
 
-    const movieName = localStorage.getItem(MOVIE_NAME_KEY);
-
-    if(movieName) {
-      onGetMovies(movieName, getCheckboxValue());
-    }
-
     return () => window.removeEventListener('resize', handleChangeWidthScreen);
   }, []);
 

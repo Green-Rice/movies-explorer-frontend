@@ -21,6 +21,9 @@ import './App.css';
 import { getToken } from '../../utils/helpers/getToken';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Preloader from '../Preloader/Preloader';
+import { getCheckboxValue } from '../../utils/helpers/getCheckboxValue';
+import { getSearchedMovies } from '../../utils/helpers/getSearchedMovies';
+import { getCheckboxedMovies } from '../../utils/helpers/getCheckboxedMovies';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({
@@ -30,6 +33,7 @@ const App = () => {
   });
   const [loggedIn, setLoggedIn] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [moviesFromServer, setMoviesFromServer] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
   const [loadingPage, setLoadingPage] = useState(true);
   const navigate = useNavigate();
@@ -38,6 +42,10 @@ const App = () => {
     const token = getToken();
     if (token) {
       handleGetUser(token);
+      const movieName = localStorage.getItem(MOVIE_NAME_KEY);
+      if (movieName) {
+        handleGetMovie(movieName, getCheckboxValue());
+      }
     } else {
       setLoadingPage(false);
     }
@@ -55,17 +63,19 @@ const App = () => {
   };
 
   const handleGetMovie = async (movieName, checkbox) => {
+    let movies = moviesFromServer;
     let filteredMovies;
     setIsLoader(true);
-    const moviesFromServer = await getMovies();
-    filteredMovies = moviesFromServer.filter(
-      (movie) =>
-        movie.nameRU.toLowerCase().includes(movieName) ||
-        movie.nameEN.toLowerCase().includes(movieName)
-    );
+
+    if (moviesFromServer.length === 0) {
+      movies = await getMovies();
+      setMoviesFromServer(movies);
+      console.log(movies);
+    }
+    filteredMovies = getSearchedMovies(movies, movieName);
 
     if (checkbox) {
-      filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+      filteredMovies = getCheckboxedMovies(filteredMovies);
     }
 
     setFilteredMovies(filteredMovies);
