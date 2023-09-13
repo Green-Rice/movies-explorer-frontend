@@ -1,5 +1,5 @@
-import { JWT } from '../localStorage';
-import { MAIN_API_URL } from '../url';
+import { getToken } from '../helpers/getToken';
+import { BEATFILM_MOVIES, MAIN_API_URL } from '../url';
 
 const checkAnswer = (res) => {
   if (res.ok) {
@@ -52,6 +52,85 @@ export const getUser = async (token) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await checkAnswer(res);
+    return data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getSavedMovies = async () => {
+  try {
+    const res = await fetch(`${MAIN_API_URL}/movies`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+
+    const data = await checkAnswer(res);
+    return data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const addSavedMovies = async (movie) => {
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    id: movieId,
+    nameRU,
+    nameEN,
+  } = movie;
+  try {
+    const res = await fetch(`${MAIN_API_URL}/movies`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image: BEATFILM_MOVIES + image.url,
+        trailerLink,
+        thumbnail: BEATFILM_MOVIES + image.formats.thumbnail.url,
+        movieId,
+        nameRU,
+        nameEN,
+      }),
+    });
+
+    const data = await checkAnswer(res);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(error);
+  }
+};
+
+export const deleteSavedMovies = async (movie) => {
+  try {
+    const res = await fetch(`${MAIN_API_URL}/movies/${movie._id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`,
       },
     });
 

@@ -2,10 +2,14 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
-const MoviesCardList = ({ movies, isLoader }) => {
+const MoviesCardList = ({ movies, isLoader, onSaveMovie, onDeleteMovie }) => {
   const moviesList = movies.map((movie) => (
-    <li key={movie.id}>
-      <MoviesCard movie={movie} />
+    <li key={movie.id || movie._id}>
+      <MoviesCard
+        movie={movie}
+        onSaveMovie={onSaveMovie}
+        onDeleteMovie={onDeleteMovie}
+      />
     </li>
   ));
 

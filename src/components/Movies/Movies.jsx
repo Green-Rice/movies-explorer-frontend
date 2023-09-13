@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
+import { getCheckboxValue } from '../../utils/helpers/getCheckboxValue';
 import { MOVIE_CHECKBOX_KEY, MOVIE_NAME_KEY } from '../../utils/localStorage';
 import MoreButton from '../MoreButton/MoreButton';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
-import { getCheckboxValue } from '../../utils/helpers/getCheckboxValue';
 
-const Movies = ({ onSubmit, filteredMovies, isLoader, onGetMovies }) => {
+const Movies = ({
+  onSubmit,
+  filteredMovies,
+  isLoader,
+  onSaveMovie,
+  onDeleteMovie,
+}) => {
   const movieName = localStorage.getItem(MOVIE_NAME_KEY);
   const movieCheckbox = getCheckboxValue();
-
   const [widthScreen, setWidthScreen] = useState(window.screen.width);
   const [moviesCount, setMoviesCount] = useState(0);
   const [movies, setMovies] = useState(filteredMovies);
@@ -56,7 +61,12 @@ const Movies = ({ onSubmit, filteredMovies, isLoader, onGetMovies }) => {
         movieCheckbox={movieCheckbox}
         onSubmit={handleSubmit}
       />
-      <MoviesCardList movies={movies} isLoader={isLoader} />
+      <MoviesCardList
+        movies={movies}
+        isLoader={isLoader}
+        onSaveMovie={onSaveMovie}
+        onDeleteMovie={onDeleteMovie}
+      />
       {hasMovies && <MoreButton onClick={handleAddMovies} />}
     </main>
   );

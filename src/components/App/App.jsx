@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { getMovies } from '../../utils/api/moviesApi';
-import { getUser, signIn, signUp } from '../../utils/api/mainApi';
+import {
+  addSavedMovies,
+  deleteSavedMovies,
+  getSavedMovies,
+  getUser,
+  signIn,
+  signUp,
+} from '../../utils/api/mainApi';
 import {
   JWT,
   MOVIE_CHECKBOX_KEY,
@@ -19,11 +26,12 @@ import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 import { getToken } from '../../utils/helpers/getToken';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
 import { getCheckboxValue } from '../../utils/helpers/getCheckboxValue';
 import { getSearchedMovies } from '../../utils/helpers/getSearchedMovies';
 import { getCheckboxedMovies } from '../../utils/helpers/getCheckboxedMovies';
+import { SavedMoviesContext } from '../../context/SavedMoviesContext';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({
@@ -34,6 +42,7 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [moviesFromServer, setMoviesFromServer] = useState([]);
+  const [savedMoviesFromServer, setSavedMoviesFromServer] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
   const [loadingPage, setLoadingPage] = useState(true);
   const navigate = useNavigate();
@@ -42,6 +51,7 @@ const App = () => {
     const token = getToken();
     if (token) {
       handleGetUser(token);
+      handleGetSavedMovies();
       const movieName = localStorage.getItem(MOVIE_NAME_KEY);
       if (movieName) {
         handleGetMovie(movieName, getCheckboxValue());
@@ -70,7 +80,6 @@ const App = () => {
     if (moviesFromServer.length === 0) {
       movies = await getMovies();
       setMoviesFromServer(movies);
-      console.log(movies);
     }
     filteredMovies = getSearchedMovies(movies, movieName);
 
@@ -80,7 +89,6 @@ const App = () => {
 
     setFilteredMovies(filteredMovies);
     setIsLoader(false);
-    console.log(filteredMovies);
   };
 
   const handleSignUp = async (data) => {
@@ -111,52 +119,95 @@ const App = () => {
     localStorage.removeItem(MOVIE_NAME_KEY);
   };
 
+  const handleGetSavedMovies = async () => {
+    try {
+      const savedMovies = await getSavedMovies();
+      console.log(savedMovies);
+      setSavedMoviesFromServer(savedMovies);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleSaveMovie = async (movie) => {
+    try {
+      const res = await addSavedMovies(movie);
+      handleGetSavedMovies();
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleDeleteMovies = async (movie) => {
+    console.log(movie);
+    try {
+      const res = await deleteSavedMovies(movie);
+      handleGetSavedMovies();
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   if (loadingPage) {
     return <Preloader />;
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Routes>
-        <Route element={<Header loggedIn={loggedIn} />}>
-          <Route element={<Footer />}>
-            <Route index element={<Main />} />
+      <SavedMoviesContext.Provider value={savedMoviesFromServer}>
+        <Routes>
+          <Route element={<Header loggedIn={loggedIn} />}>
+            <Route element={<Footer />}>
+              <Route index element={<Main />} />
+              <Route
+                path="movies"
+                element={
+                  <ProtectedRoute
+                    component={Movies}
+                    loggedIn={loggedIn}
+                    onSubmit={handleGetMovie}
+                    filteredMovies={filteredMovies}
+                    isLoader={isLoader}
+                    onSaveMovie={handleSaveMovie}
+                    onDeleteMovie={handleDeleteMovies}
+                  />
+                }
+              />
+              <Route
+                path="saved-movies"
+                element={
+                  <ProtectedRoute
+                    component={SavedMovies}
+                    loggedIn={loggedIn}
+                    onDeleteMovie={handleDeleteMovies}
+                  />
+                }
+              />
+            </Route>
             <Route
-              path="movies"
+              path="profile"
               element={
-                <PrivateRoute
-                  component={Movies}
+                <ProtectedRoute
+                  component={Profile}
                   loggedIn={loggedIn}
-                  onSubmit={handleGetMovie}
-                  onGetMovies={handleGetMovie}
-                  filteredMovies={filteredMovies}
-                  isLoader={isLoader}
+                  onSignOut={handleSignOut}
                 />
               }
             />
-            <Route path="saved-movies" element={<SavedMovies />} />
           </Route>
           <Route
-            path="profile"
-            element={
-              <PrivateRoute
-                component={Profile}
-                loggedIn={loggedIn}
-                onSignOut={handleSignOut}
-              />
-            }
+            path="signup"
+            element={<Register loggedIn={loggedIn} onSubmit={handleSignUp} />}
           />
-        </Route>
-        <Route
-          path="signup"
-          element={<Register loggedIn={loggedIn} onSubmit={handleSignUp} />}
-        />
-        <Route
-          path="signin"
-          element={<Login loggedIn={loggedIn} onSubmit={handleSignIn} />}
-        />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+          <Route
+            path="signin"
+            element={<Login loggedIn={loggedIn} onSubmit={handleSignIn} />}
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </SavedMoviesContext.Provider>
     </CurrentUserContext.Provider>
   );
 };
