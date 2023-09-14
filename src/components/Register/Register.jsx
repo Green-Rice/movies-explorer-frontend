@@ -5,9 +5,15 @@ import logo from '../../images/logo.png';
 import { EMAIL_PATTERN } from '../../utils/consts';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-const Register = ({ onSubmit, loggedIn }) => {
+const Register = ({ onSubmit, loggedIn, errorMessage, onClearMessage }) => {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
+
+  useEffect(() => {
+    return () => {
+      onClearMessage();
+    };
+  }, []);
 
   useEffect(() => {
     resetForm();
@@ -100,6 +106,13 @@ const Register = ({ onSubmit, loggedIn }) => {
             </span>
           </fieldset>
 
+          <span
+            className={`register__error ${
+              !!errorMessage && 'register__error_active'
+            }`}
+          >
+            {errorMessage}
+          </span>
           <button
             className={`button form__button ${
               !isValid && 'form__button_inactive'
@@ -109,6 +122,7 @@ const Register = ({ onSubmit, loggedIn }) => {
             Зарегистрироваться
           </button>
         </form>
+
         <p className="register__question">
           Уже зарегистрированы?{' '}
           <Link to="/signin" className="link register__link">

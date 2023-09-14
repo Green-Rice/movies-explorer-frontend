@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import { SavedMoviesContext } from '../../context/SavedMoviesContext';
@@ -7,11 +7,20 @@ import { getCheckboxedMovies } from '../../utils/helpers/getCheckboxedMovies';
 
 const SavedMovies = ({ onDeleteMovie }) => {
   const savedMoviesFromServer = useContext(SavedMoviesContext);
+  const [movieSearchData, setMovieSearchData] = useState({
+    name: '',
+    checkbox: false,
+  });
   const [filteredSavedMovies, setFilteredSavedMovies] = useState(
     savedMoviesFromServer
   );
 
-  const handleSubmit = (movieName, checkbox) => {
+  const handleSearchMovies = (movieName, checkbox) => {
+    setMovieSearchData((prevState) => ({
+      ...prevState,
+      name: movieName,
+      checkbox,
+    }));
     let filteredMovie = getSearchedMovies(savedMoviesFromServer, movieName);
 
     if (checkbox) {
@@ -21,12 +30,17 @@ const SavedMovies = ({ onDeleteMovie }) => {
     setFilteredSavedMovies(filteredMovie);
   };
 
+  useEffect(() => {
+    handleSearchMovies(movieSearchData.name, movieSearchData.checkbox);
+  }, [savedMoviesFromServer]);
+
   return (
     <main>
-      <SearchForm onSubmit={handleSubmit} />
+      <SearchForm onSubmit={handleSearchMovies} />
       <MoviesCardList
         movies={filteredSavedMovies}
         onDeleteMovie={onDeleteMovie}
+        moviesFromServer={savedMoviesFromServer}
       />
     </main>
   );

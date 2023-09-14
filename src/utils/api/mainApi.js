@@ -7,7 +7,7 @@ const checkAnswer = (res) => {
   }
 
   return res.json().then((err) => {
-    return Promise.reject(err);
+    return Promise.reject({ ...err, status: res.status });
   });
 };
 
@@ -24,6 +24,7 @@ export const signUp = async ({ name, email, password }) => {
     const data = await checkAnswer(res);
     return data;
   } catch (error) {
+    console.log(error);
     return Promise.reject(error);
   }
 };

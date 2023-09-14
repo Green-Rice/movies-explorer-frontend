@@ -4,12 +4,24 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { EMAIL_PATTERN } from '../../utils/consts';
 
-const Profile = ({ onSignOut, onSubmit, isLoader }) => {
+const Profile = ({
+  onSignOut,
+  onSubmit,
+  isLoader,
+  errorMessage,
+  onClearMessage,
+}) => {
   const currentUser = useContext(CurrentUserContext);
-  const { values, handleChange, isValid, resetForm } = useFormWithValidation();
-  const [hasError, setHasError] = useState(true);
+  const { values, handleChange, isValid, resetForm, errors } =
+    useFormWithValidation();
   const [isEdit, setIsEdit] = useState(false);
   const [isSameUser, setIsSameUser] = useState(true);
+
+  useEffect(() => {
+    return () => {
+      onClearMessage();
+    };
+  }, []);
 
   useEffect(() => {
     setIsSameUser(
@@ -48,7 +60,9 @@ const Profile = ({ onSignOut, onSubmit, isLoader }) => {
                 Имя
               </label>
               <input
-                className="profile__input"
+                className={`profile__input ${
+                  errors.name && 'profile__input_error'
+                }`}
                 type="text"
                 id="name"
                 name="name"
@@ -66,7 +80,9 @@ const Profile = ({ onSignOut, onSubmit, isLoader }) => {
                 E-mail
               </label>
               <input
-                className="profile__input"
+                className={`profile__input ${
+                  errors.email && 'profile__input_error'
+                }`}
                 type="email"
                 id="email"
                 name="email"
@@ -82,10 +98,10 @@ const Profile = ({ onSignOut, onSubmit, isLoader }) => {
             <div className="profile__buttonContainer">
               <span
                 className={`profile__errorMessage ${
-                  hasError && 'profile__errorMessage_active'
+                  errorMessage && 'profile__errorMessage_active'
                 }`}
               >
-                При обновлении профиля произошла ошибка
+                {errorMessage}
               </span>
               {!isEdit ? (
                 <>

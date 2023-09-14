@@ -21,6 +21,7 @@
 .register__form {
   margin-top: 40px;
   width: 100%;
+  position: relative;
 }
 
 .form__set {
@@ -92,6 +93,21 @@
   cursor: auto;
   background-color: var(--inactive-color);
   color: #C2C2C2;
+}
+
+.register__error {
+  color: var(--error-color);
+  font-size: 10px;
+  position: absolute;
+  bottom: 65px;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.register__error_active {
+  opacity: 1;
 }
 
 .register__question {

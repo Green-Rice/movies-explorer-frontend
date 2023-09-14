@@ -2,7 +2,14 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
-const MoviesCardList = ({ movies, isLoader, onSaveMovie, onDeleteMovie }) => {
+const MoviesCardList = ({
+  movies,
+  isLoader,
+  onSaveMovie,
+  onDeleteMovie,
+  errorMessage,
+  moviesFromServer,
+}) => {
   const moviesList = movies.map((movie) => (
     <li key={movie.id || movie._id}>
       <MoviesCard
@@ -15,6 +22,22 @@ const MoviesCardList = ({ movies, isLoader, onSaveMovie, onDeleteMovie }) => {
 
   if (isLoader) {
     return <Preloader />;
+  }
+
+  if (errorMessage) {
+    return (
+      <section className="movieCardList">
+        <p className="movieCardList__error">{errorMessage}</p>
+      </section>
+    );
+  }
+
+  if (moviesFromServer.length !== 0 && movies.length === 0) {
+    return (
+      <section className="movieCardList">
+        <p>Ничего не найдено!</p>
+      </section>
+    );
   }
 
   return (

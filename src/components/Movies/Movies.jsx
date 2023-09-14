@@ -11,6 +11,9 @@ const Movies = ({
   isLoader,
   onSaveMovie,
   onDeleteMovie,
+  errorMessage,
+  onClearMessage,
+  moviesFromServer,
 }) => {
   const movieName = localStorage.getItem(MOVIE_NAME_KEY);
   const movieCheckbox = getCheckboxValue();
@@ -26,7 +29,10 @@ const Movies = ({
   useEffect(() => {
     window.addEventListener('resize', handleChangeWidthScreen);
 
-    return () => window.removeEventListener('resize', handleChangeWidthScreen);
+    return () => {
+      window.removeEventListener('resize', handleChangeWidthScreen);
+      onClearMessage();
+    };
   }, []);
 
   useEffect(() => {
@@ -66,6 +72,8 @@ const Movies = ({
         isLoader={isLoader}
         onSaveMovie={onSaveMovie}
         onDeleteMovie={onDeleteMovie}
+        errorMessage={errorMessage}
+        moviesFromServer={moviesFromServer}
       />
       {hasMovies && <MoreButton onClick={handleAddMovies} />}
     </main>

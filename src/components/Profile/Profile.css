@@ -51,6 +51,14 @@
   border-bottom: 1px solid var(--primary-color);
 }
 
+.profile__input_error {
+  color: var(--error-color);
+}
+
+.profile__input_error:focus {
+  border-bottom: 1px solid var(--error-color);
+}
+
 .profile__line {
   margin-top: 16px;
   margin-bottom: 17px;
