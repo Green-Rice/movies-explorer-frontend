@@ -42,7 +42,7 @@ const Register = ({ onSubmit, loggedIn }) => {
               className={`form__input ${errors.name && 'form__input_error'}`}
               name="name"
               onChange={handleChange}
-              minLength="4"
+              minLength="2"
               maxLength="40"
               required
             />

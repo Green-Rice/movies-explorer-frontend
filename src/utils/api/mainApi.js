@@ -62,6 +62,25 @@ export const getUser = async (token) => {
   }
 };
 
+export const updateUser = async ({ name, email }) => {
+  try {
+    const res = await fetch(`${MAIN_API_URL}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ name, email }),
+    });
+
+    const data = checkAnswer(res);
+    return data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export const getSavedMovies = async () => {
   try {
     const res = await fetch(`${MAIN_API_URL}/movies`, {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ onChecked, movieCheckbox }) => {

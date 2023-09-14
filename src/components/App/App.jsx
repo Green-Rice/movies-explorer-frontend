@@ -9,6 +9,7 @@ import {
   getUser,
   signIn,
   signUp,
+  updateUser,
 } from '../../utils/api/mainApi';
 import {
   JWT,
@@ -150,6 +151,18 @@ const App = () => {
     }
   };
 
+  const handleUpdateUser = async (newUser) => {
+    setIsLoader(true);
+    try {
+      const newUserResponse = await updateUser(newUser);
+      console.log(newUserResponse);
+      setCurrentUser(newUserResponse);
+    } catch (e) {
+      console.log(e);
+    }
+    setIsLoader(false);
+  };
+
   if (loadingPage) {
     return <Preloader />;
   }
@@ -193,6 +206,8 @@ const App = () => {
                   component={Profile}
                   loggedIn={loggedIn}
                   onSignOut={handleSignOut}
+                  onSubmit={handleUpdateUser}
+                  isLoader={isLoader}
                 />
               }
             />
