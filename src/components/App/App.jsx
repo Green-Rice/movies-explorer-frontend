@@ -122,7 +122,7 @@ const App = () => {
   const handleGetSavedMovies = async () => {
     try {
       const savedMovies = await getSavedMovies();
-      console.log(savedMovies);
+
       setSavedMoviesFromServer(savedMovies);
     } catch (e) {
       console.log(e);
@@ -131,9 +131,9 @@ const App = () => {
 
   const handleSaveMovie = async (movie) => {
     try {
-      const res = await addSavedMovies(movie);
+      await addSavedMovies(movie);
+
       handleGetSavedMovies();
-      console.log(res);
     } catch (e) {
       console.log(e);
     }
