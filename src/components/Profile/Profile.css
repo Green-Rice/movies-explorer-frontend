@@ -88,6 +88,11 @@
   opacity: 1;
 }
 
+.profile__acceptMessage {
+  color: var(--accept-color);
+  opacity: 1;
+}
+
 .profile__btn_type_edit {
   font-size: 13px;
   width: 100%;

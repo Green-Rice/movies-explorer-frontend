@@ -5,7 +5,13 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { EMAIL_PATTERN } from '../../utils/consts';
 import { useEffect } from 'react';
 
-const Login = ({ onSubmit, loggedIn, errorMessage, onClearMessage }) => {
+const Login = ({
+  onSubmit,
+  loggedIn,
+  errorMessage,
+  onClearMessage,
+  isLoader,
+}) => {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
@@ -89,11 +95,11 @@ const Login = ({ onSubmit, loggedIn, errorMessage, onClearMessage }) => {
           </span>
           <button
             className={`button form__button ${
-              !isValid && 'form__button_inactive'
+              (!isValid || isLoader) && 'form__button_inactive'
             }`}
-            disabled={!isValid}
+            disabled={!isValid || isLoader}
           >
-            Войти
+            {isLoader ? 'Выполняется вход...' : 'Войти'}
           </button>
         </form>
         <p className="login__question">

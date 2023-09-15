@@ -66,6 +66,7 @@ const Movies = ({
         movieName={movieName}
         movieCheckbox={movieCheckbox}
         onSubmit={handleSubmit}
+        isLoader={isLoader}
       />
       <MoviesCardList
         movies={movies}

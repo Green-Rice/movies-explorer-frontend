@@ -4,7 +4,7 @@ import enter from '../../images/enter.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useState } from 'react';
 
-const SearchForm = ({ movieName, onSubmit, movieCheckbox }) => {
+const SearchForm = ({ movieName, onSubmit, movieCheckbox, isLoader }) => {
   const [value, setValue] = useState(movieName || '');
   const [checked, setChecked] = useState(movieCheckbox);
   const [isError, setIsError] = useState(false);
@@ -66,7 +66,7 @@ const SearchForm = ({ movieName, onSubmit, movieCheckbox }) => {
               Нужно ввести ключевое слово
             </span>
           </fieldset>
-          <button className="button button_type_search">
+          <button className="button button_type_search" disabled={isLoader}>
             <img className="button__img" src={enter} alt="Начать поиск" />
           </button>
           <div className="searchForm__flex">

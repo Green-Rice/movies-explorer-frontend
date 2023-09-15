@@ -21,7 +21,7 @@ import {
   MOVIE_CHECKBOX_KEY,
   MOVIE_NAME_KEY,
 } from '../../utils/localStorage';
-import { ERROR_MESSAGES } from '../../utils/messages';
+import { ACCEPT_MESSAGES, ERROR_MESSAGES } from '../../utils/messages';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -41,6 +41,7 @@ const App = () => {
     name: '',
     email: '',
   });
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [moviesFromServer, setMoviesFromServer] = useState([]);
@@ -48,6 +49,7 @@ const App = () => {
   const [isLoader, setIsLoader] = useState(false);
   const [loadingPage, setLoadingPage] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [acceptMessage, setAcceptMessage] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -101,6 +103,7 @@ const App = () => {
   };
 
   const handleSignUp = async (data) => {
+    setIsLoader(true);
     try {
       handleClearErrorMessage();
       await signUp(data);
@@ -111,12 +114,13 @@ const App = () => {
       } else {
         setErrorMessage(ERROR_MESSAGES.REGISTRATION_ERROR);
       }
-
       console.log(e);
     }
+    setIsLoader(false);
   };
 
   const handleSignIn = async (data) => {
+    setIsLoader(true);
     try {
       handleClearErrorMessage();
       const res = await signIn(data);
@@ -132,6 +136,7 @@ const App = () => {
       }
       console.log(e);
     }
+    setIsLoader(false);
   };
 
   const handleSignOut = () => {
@@ -183,6 +188,7 @@ const App = () => {
       const newUserResponse = await updateUser(newUser);
       console.log(newUserResponse);
       setCurrentUser(newUserResponse);
+      setAcceptMessage(ACCEPT_MESSAGES.UPDATE_USER);
     } catch (e) {
       if (e.status === 409) {
         setErrorMessage(e.message);
@@ -192,6 +198,9 @@ const App = () => {
       console.log(e);
     }
     setIsLoader(false);
+    setTimeout(() => {
+      setAcceptMessage('');
+    }, 3000);
   };
 
   const handleClearErrorMessage = () => {
@@ -233,6 +242,7 @@ const App = () => {
                     component={SavedMovies}
                     loggedIn={loggedIn}
                     onDeleteMovie={handleDeleteMovies}
+                    isLoader={isLoader}
                   />
                 }
               />
@@ -248,6 +258,7 @@ const App = () => {
                   isLoader={isLoader}
                   errorMessage={errorMessage}
                   onClearMessage={handleClearErrorMessage}
+                  acceptMessage={acceptMessage}
                 />
               }
             />
@@ -260,6 +271,7 @@ const App = () => {
                 onSubmit={handleSignUp}
                 errorMessage={errorMessage}
                 onClearMessage={handleClearErrorMessage}
+                isLoader={isLoader}
               />
             }
           />
@@ -271,6 +283,7 @@ const App = () => {
                 onSubmit={handleSignIn}
                 errorMessage={errorMessage}
                 onClearMessage={handleClearErrorMessage}
+                isLoader={isLoader}
               />
             }
           />

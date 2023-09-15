@@ -5,7 +5,7 @@ import { SavedMoviesContext } from '../../context/SavedMoviesContext';
 import { getSearchedMovies } from '../../utils/helpers/getSearchedMovies';
 import { getCheckboxedMovies } from '../../utils/helpers/getCheckboxedMovies';
 
-const SavedMovies = ({ onDeleteMovie }) => {
+const SavedMovies = ({ onDeleteMovie, isLoader }) => {
   const savedMoviesFromServer = useContext(SavedMoviesContext);
   const [movieSearchData, setMovieSearchData] = useState({
     name: '',
@@ -36,7 +36,7 @@ const SavedMovies = ({ onDeleteMovie }) => {
 
   return (
     <main>
-      <SearchForm onSubmit={handleSearchMovies} />
+      <SearchForm onSubmit={handleSearchMovies} isLoader={isLoader} />
       <MoviesCardList
         movies={filteredSavedMovies}
         onDeleteMovie={onDeleteMovie}

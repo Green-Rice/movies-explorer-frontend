@@ -5,7 +5,13 @@ import logo from '../../images/logo.png';
 import { EMAIL_PATTERN } from '../../utils/consts';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-const Register = ({ onSubmit, loggedIn, errorMessage, onClearMessage }) => {
+const Register = ({
+  onSubmit,
+  loggedIn,
+  errorMessage,
+  onClearMessage,
+  isLoader,
+}) => {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
@@ -115,11 +121,11 @@ const Register = ({ onSubmit, loggedIn, errorMessage, onClearMessage }) => {
           </span>
           <button
             className={`button form__button ${
-              !isValid && 'form__button_inactive'
+              (!isValid || isLoader) && 'form__button_inactive'
             }`}
-            disabled={!isValid}
+            disabled={!isValid || isLoader}
           >
-            Зарегистрироваться
+            {isLoader ? 'Регистрация...' : 'Зарегистрироваться'}
           </button>
         </form>
 

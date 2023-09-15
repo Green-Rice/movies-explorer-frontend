@@ -6,3 +6,7 @@ export const ERROR_MESSAGES = {
     'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
   UPDATE_USER_ERROR: 'При обновлении профиля произошла ошибка.',
 };
+
+export const ACCEPT_MESSAGES = {
+  UPDATE_USER: 'Данные успешно обновлены.',
+};

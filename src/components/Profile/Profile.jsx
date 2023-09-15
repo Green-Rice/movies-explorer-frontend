@@ -10,6 +10,7 @@ const Profile = ({
   isLoader,
   errorMessage,
   onClearMessage,
+  acceptMessage,
 }) => {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, isValid, resetForm, errors } =
@@ -99,9 +100,10 @@ const Profile = ({
               <span
                 className={`profile__errorMessage ${
                   errorMessage && 'profile__errorMessage_active'
-                }`}
+                } ${acceptMessage && 'profile__acceptMessage'}`}
               >
-                {errorMessage}
+                {errorMessage && errorMessage}
+                {acceptMessage && acceptMessage}
               </span>
               {!isEdit ? (
                 <>
