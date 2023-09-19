@@ -82,7 +82,6 @@
 
 @media screen and (max-width: 800px) {
   .aboutProject {
-    background-color: #fff;
     padding: 90px 50px;
   }
 
@@ -110,7 +109,6 @@
 
 @media screen and (max-width: 500px) {
   .aboutProject {
-    background-color: #fff;
     padding: 70px 18px;
   }
 

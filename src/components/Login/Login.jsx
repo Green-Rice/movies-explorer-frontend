@@ -2,7 +2,6 @@ import { Link, Navigate } from 'react-router-dom';
 import './Login.css';
 import logo from '../../images/logo.png';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
-import { EMAIL_PATTERN } from '../../utils/consts';
 import { useEffect } from 'react';
 
 const Login = ({
@@ -53,7 +52,6 @@ const Login = ({
               required
               minLength="4"
               maxLength="40"
-              pattern={EMAIL_PATTERN}
             />
             <span
               className={`form__input-error ${

@@ -1,6 +1,5 @@
 .searchForm {
-  padding: 70px 0;
-  margin: 0 70px;
+  padding: 70px 70px;
   border-bottom: 1px solid var(--gray-color);
 }
 
@@ -83,8 +82,7 @@
 
 @media screen and (max-width: 800px) {
   .searchForm {
-    padding: 80px 0 110px;
-    margin: 0 30px;
+    padding: 80px 30px 110px;
   }
 
   .searchForm::after {
@@ -99,8 +97,7 @@
 
 @media screen and (max-width: 500px) {
   .searchForm {
-    padding: 80px 0 45px;
-    margin: 0 10px;
+    padding: 80px 10px 45px;
   }
 
   .searchForm__container {

@@ -26,7 +26,7 @@ const MoviesCardList = ({
 
   if (errorMessage) {
     return (
-      <section className="movieCardList">
+      <section className="movieCardList content">
         <p className="movieCardList__error">{errorMessage}</p>
       </section>
     );
@@ -34,14 +34,14 @@ const MoviesCardList = ({
 
   if (moviesFromServer.length !== 0 && movies.length === 0) {
     return (
-      <section className="movieCardList">
+      <section className="movieCardList content">
         <p>Ничего не найдено!</p>
       </section>
     );
   }
 
   return (
-    <section className="movieCardList">
+    <section className="movieCardList content">
       <ul className="list movieCardList__list">{moviesList}</ul>
     </section>
   );

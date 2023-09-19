@@ -16,11 +16,7 @@ import { getCheckboxValue } from '../../utils/helpers/getCheckboxValue';
 import { getCheckboxedMovies } from '../../utils/helpers/getCheckboxedMovies';
 import { getSearchedMovies } from '../../utils/helpers/getSearchedMovies';
 import { getToken } from '../../utils/helpers/getToken';
-import {
-  JWT,
-  MOVIE_CHECKBOX_KEY,
-  MOVIE_NAME_KEY,
-} from '../../utils/localStorage';
+import { JWT, MOVIE_NAME_KEY } from '../../utils/localStorage';
 import { ACCEPT_MESSAGES, ERROR_MESSAGES } from '../../utils/messages';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -45,7 +41,7 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [moviesFromServer, setMoviesFromServer] = useState([]);
-  const [savedMoviesFromServer, setSavedMoviesFromServer] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
   const [loadingPage, setLoadingPage] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
@@ -128,6 +124,7 @@ const App = () => {
       handleGetUser(res.token);
       setLoggedIn(true);
       navigate('movies');
+      handleGetSavedMovies();
     } catch (e) {
       if (e.status === 401) {
         setErrorMessage(e.message);
@@ -141,10 +138,9 @@ const App = () => {
 
   const handleSignOut = () => {
     setLoggedIn(false);
-    localStorage.removeItem(JWT);
-    localStorage.removeItem(MOVIE_CHECKBOX_KEY);
-    localStorage.removeItem(MOVIE_NAME_KEY);
+    localStorage.clear();
     setMoviesFromServer([]);
+    setSavedMovies([]);
     setFilteredMovies([]);
     setErrorMessage('');
     setCurrentUser({ _id: '', name: '', email: '' });
@@ -153,8 +149,7 @@ const App = () => {
   const handleGetSavedMovies = async () => {
     try {
       const savedMovies = await getSavedMovies();
-
-      setSavedMoviesFromServer(savedMovies);
+      setSavedMovies(savedMovies);
     } catch (e) {
       console.log(e);
     }
@@ -162,20 +157,19 @@ const App = () => {
 
   const handleSaveMovie = async (movie) => {
     try {
-      await addSavedMovies(movie);
-
-      handleGetSavedMovies();
+      const addedMovieResolve = await addSavedMovies(movie);
+      setSavedMovies((prevState) => [...prevState, addedMovieResolve]);
     } catch (e) {
       console.log(e);
     }
   };
 
   const handleDeleteMovies = async (movie) => {
-    console.log(movie);
     try {
-      const res = await deleteSavedMovies(movie);
-      handleGetSavedMovies();
-      console.log(res);
+      const removedMovieResolve = await deleteSavedMovies(movie);
+      setSavedMovies((prevState) =>
+        prevState.filter((movie) => movie._id !== removedMovieResolve._id)
+      );
     } catch (e) {
       console.log(e);
     }
@@ -213,7 +207,7 @@ const App = () => {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <SavedMoviesContext.Provider value={savedMoviesFromServer}>
+      <SavedMoviesContext.Provider value={savedMovies}>
         <Routes>
           <Route element={<Header loggedIn={loggedIn} />}>
             <Route element={<Footer />}>

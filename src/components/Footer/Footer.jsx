@@ -1,23 +1,26 @@
 import { Outlet } from 'react-router-dom';
-import "./Footer.css";
+import './Footer.css';
 
 const Footer = () => {
-  return(
+  return (
     <>
-    <Outlet />
-      <footer className="footer">
+      <Outlet />
+      <footer className="footer content">
         <h3 className="footer__title">
           Учебный проект Яндекс.Практикум х BeatFilm.
         </h3>
         <div className="footer__line" />
         <div className="footer__flex">
-          <p className="footer__copyright">
-            &#169; 2020
-          </p>
+          <p className="footer__copyright">&#169; 2020</p>
           <div className="footer__yandex">
-            <p className="footer__text">
+            <a
+              className="link"
+              href="https://practicum.yandex.ru/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Яндекс.Практикум
-            </p>
+            </a>
             <a
               className="link"
               href="https://github.com/yandex-praktikum"
@@ -30,7 +33,7 @@ const Footer = () => {
         </div>
       </footer>
     </>
-  )
-}
+  );
+};
 
 export default Footer;

@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.png';
-import { EMAIL_PATTERN } from '../../utils/consts';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 const Register = ({
@@ -79,7 +78,6 @@ const Register = ({
               required
               minLength="4"
               maxLength="40"
-              pattern={EMAIL_PATTERN}
             />
             <span
               className={`form__input-error ${

@@ -32,7 +32,7 @@ const SearchForm = ({ movieName, onSubmit, movieCheckbox, isLoader }) => {
   };
 
   return (
-    <section className="searchForm">
+    <section className="searchForm content">
       <div className="searchForm__container">
         <form
           className="searchForm__form"

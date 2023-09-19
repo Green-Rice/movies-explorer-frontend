@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
-import './Profile.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
-import { EMAIL_PATTERN } from '../../utils/consts';
+import './Profile.css';
 
 const Profile = ({
   onSignOut,
@@ -53,7 +52,7 @@ const Profile = ({
   return (
     <main>
       <section className="profile">
-        <h2 className="profile__title">Привет, Виталий!</h2>
+        <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
         <div className="profile__container">
           <form className="profile__form" onSubmit={handleSubmit}>
             <fieldset className="profile__set">
@@ -93,7 +92,6 @@ const Profile = ({
                 required
                 minLength="4"
                 maxLength="40"
-                pattern={EMAIL_PATTERN}
               />
             </fieldset>
             <div className="profile__buttonContainer">

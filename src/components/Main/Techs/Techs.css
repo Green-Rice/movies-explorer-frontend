@@ -1,5 +1,10 @@
 .techs {
   background-color: #F5F5F5;;
+}
+
+.techs__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
   padding: 100px 70px;
 }
 
@@ -37,7 +42,7 @@
   letter-spacing: -0.56px;
 }
 
-.techs__container {
+.techs__container-list {
   display: flex;
   justify-content: center;
 }
@@ -65,7 +70,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .techs {
+  .techs__container {
     padding: 90px 60px;
   }
 
@@ -93,8 +98,7 @@
 }
 
 @media screen and (max-width: 500px) {
-  .techs {
-    background-color: #fff;
+  .techs__container {
     padding: 70px 18px;
   }
 
