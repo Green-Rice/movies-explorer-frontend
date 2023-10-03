@@ -9,6 +9,8 @@
   --main-gray-bg: #DDDEE3;
   --gray-text: #A0A0A0;
   --white-bg: #FAFAFA;
+  --accept-color: #2be080;
+  --max-width: 1280px;
 }
 
 body {
@@ -18,7 +20,8 @@ body {
   box-sizing: border-box;
   color: #000;
 
-  max-width: 1280px;
+  /* max-width: 1280px; */
+  min-width: 320px;
   height: 100vh;
   margin: 0 auto;
 }
@@ -52,4 +55,9 @@ body {
 .button:hover {
   opacity: 0.8;
   transition: 0.3s;
+}
+
+.content {
+  max-width: var(--max-width);
+  margin: 0 auto;
 }

@@ -1,6 +1,11 @@
 .aboutMe {
+  background: var(--white-bg);
   padding: 110px 70px 0;
-  background: var(--white-bg)
+}
+
+.aboutMe__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 .aboutMe__title {
@@ -16,7 +21,7 @@
   margin-top: 23px;
 }
 
-.aboutMe__container {
+.aboutMe__container-list {
   margin: 0;
   margin-top: 66px;
   display: flex;
@@ -106,7 +111,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .aboutMe__container {
+  .aboutMe__container-list {
     margin-top: 60px;
     flex-direction: column-reverse;
     align-items: center;

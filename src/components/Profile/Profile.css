@@ -51,6 +51,14 @@
   border-bottom: 1px solid var(--primary-color);
 }
 
+.profile__input_error {
+  color: var(--error-color);
+}
+
+.profile__input_error:focus {
+  border-bottom: 1px solid var(--error-color);
+}
+
 .profile__line {
   margin-top: 16px;
   margin-bottom: 17px;
@@ -80,6 +88,11 @@
   opacity: 1;
 }
 
+.profile__acceptMessage {
+  color: var(--accept-color);
+  opacity: 1;
+}
+
 .profile__btn_type_edit {
   font-size: 13px;
   width: 100%;
@@ -102,6 +115,12 @@
   margin-top: 16px;
   font-size: 14px;
   border-radius: 3px;
+}
+
+.profile__btn_inactive {
+  cursor: auto;
+  background-color: var(--inactive-color);
+  color: #C2C2C2;
 }
 
 @media screen and (max-width: 800px) {

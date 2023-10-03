@@ -1,18 +1,17 @@
-import { useState } from 'react';
-import Preloader from "../Preloader/Preloader";
-import "./MoreButton.css";
+import './MoreButton.css';
 
-const MoreButton = () => {
-  const [isLoader, setIsLoader] = useState(false);
-
-  return(
+const MoreButton = ({ onClick }) => {
+  return (
     <section className="moreButton">
-      {isLoader
-        ? <Preloader />
-        : <button type="button" className="button moreButton__btn">Ещё</button>
-      }
+      <button
+        type="button"
+        className="button moreButton__btn"
+        onClick={onClick}
+      >
+        Ещё
+      </button>
     </section>
-  )
+  );
 };
 
 export default MoreButton;

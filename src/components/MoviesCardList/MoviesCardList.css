@@ -12,6 +12,12 @@
   row-gap: 32px;
 }
 
+.movieCardList__error {
+  text-align: center;
+  line-height: 1.5;
+  color: var(--error-color)
+}
+
 @media screen and (max-width: 800px) {
   .movieCardList {
     padding: 80px 30px 30px;

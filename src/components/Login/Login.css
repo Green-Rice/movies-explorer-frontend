@@ -21,6 +21,7 @@
 .login__form {
   margin-top: 40px;
   width: 100%;
+  position: relative;
 }
 
 .form__set {
@@ -74,6 +75,21 @@
 }
 
 .form__input-error_active {
+  opacity: 1;
+}
+
+.login__error {
+  color: var(--error-color);
+  font-size: 10px;
+  position: absolute;
+  bottom: 65px;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.login__error_active {
   opacity: 1;
 }
 

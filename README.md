@@ -11,3 +11,6 @@
 * CSS
 * React
 * БЭМ
+
+### https://green-m.nomoredomainsicu.ru - Сайт
+### https://github.com/Green-Rice/movies-explorer-frontend/pull/2 ссылка на pull request
